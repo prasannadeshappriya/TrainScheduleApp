@@ -2,6 +2,7 @@ package com.example.prasanna.trainscheduleapp.UI;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -37,6 +39,15 @@ public class HomeActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------------------------------------------
+
+        showTrainScheduleFragment();
+    }
+
+    public void showTrainScheduleFragment(){
+        TrainScheduleFragment scheduleFragment = new TrainScheduleFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frmMain,scheduleFragment);
+        transaction.commit();
     }
 
     @Override
@@ -78,7 +89,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_train_schedule) {
-            // Handle the camera action
+            showTrainScheduleFragment();
         } else if (id == R.id.nav_schedule_history) {
 
         } else if (id == R.id.nav_feedback) {
