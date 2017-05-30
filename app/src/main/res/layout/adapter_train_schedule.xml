@@ -45,18 +45,9 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Duration :- XX Minutes"
-        android:id="@+id/adapterTrainDuration"
-        android:layout_below="@+id/adapterTrainDeparture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dip"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:text="Type :- Long Distance"
         android:id="@+id/adapterTrainType"
-        android:layout_below="@+id/adapterTrainDuration"
+        android:layout_below="@+id/adapterTrainDeparture"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
 
