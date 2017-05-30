@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +18,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.DialogFragments.CalenderFragment;
+import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.R;
+import com.example.prasanna.trainscheduleapp.Task.GetScheduleTask;
+import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 /**
@@ -137,7 +144,65 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     }
 
     private void search() {
+        boolean con = true;
+        if(tvToStation.getText().toString().replace(" ","").equals("")){
+            Toast.makeText(getContext(), "Select a valid station name!", Toast.LENGTH_LONG).show();
+            con = false;
+        }
+        if(tvFromStation.getText().toString().replace(" ","").equals("")){
+            Toast.makeText(getContext(), "Select a valid station name!", Toast.LENGTH_LONG).show();
+            con = false;
+        }
+        String fromCode = trainStationDAO.getTrainStationID(tvFromStation.getText().toString());
+        String toCode = trainStationDAO.getTrainStationID(tvToStation.getText().toString());
+        if(fromCode.equals("null")){
+            Toast.makeText(getContext(), tvFromStation.getText().toString() + " is an invalid station name!", Toast.LENGTH_LONG).show();
+            con = false;
+        }
+        if(toCode.equals("null")){
+            Toast.makeText(getContext(), tvToStation.getText().toString() + " is an invalid station name!", Toast.LENGTH_LONG).show();
+            con = false;
+        }
+        if(con){
+            Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT+5:30"));
+            String todayDate = tvDate.getText().toString();
+            String todayTime = String.format("%1$tH:%1$tM:%1$tS", now);
 
+            String fromTime = "00:00:00";
+            String toTime = "23:59:59";
+
+            GetScheduleTask sheduleTask = new GetScheduleTask(
+                    getContext(), pd,
+                    fromCode,toCode,
+                    fromTime, toTime,
+                    todayDate, this
+            );
+            sheduleTask.execute();
+            printLog("Call Schedule Task With [FromCode-" + fromCode + ", ToCode-" + toCode + ", FromTime-" + fromTime + ", ToTime-" + toTime + ", TodayDate-" + todayDate + "]");
+        }
+    }
+
+    public void viewTrainScheduleFragment(ArrayList<TrainSchedule> arrTrainScheduleResult){
+        TrainScheduleViewFragment trainScheduleViewFragment = new TrainScheduleViewFragment();
+
+        //Tempory Hardcode Data
+        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT+5:30"));
+        String todayDate = String.format("%1$tY-%1$tm-%1$td", now);
+
+        trainScheduleViewFragment.setTrainScheduleArray(arrTrainScheduleResult);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("from_station", tvFromStation.getText().toString());
+        map.put("to_station", tvToStation.getText().toString());
+        map.put("date",todayDate);
+        trainScheduleViewFragment.setTrainScheduleDesc(map);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frmMain, trainScheduleViewFragment);
+        transaction.commit();
+    }
+
+    private void printLog(String message){
+        Log.i(Constants.TAG,"[TrainScheduleFragment] " + message);
     }
 
     private void initializeArrays() {

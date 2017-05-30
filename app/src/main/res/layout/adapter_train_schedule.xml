@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Train Name :- "
+        android:id="@+id/adapterTrainName"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/adapterTrainName"
+        android:id="@+id/adapterTrainArrivalView1"
+        android:background="@android:color/darker_gray"/>
+
+    <Space android:id="@+id/adapterTrainArrivalView2"
+        android:layout_width="0dp"
+        android:layout_below="@+id/adapterTrainArrivalView1"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Arrival :- 00:00:00"
+        android:textColor="#FFA500"
+        android:layout_below="@+id/adapterTrainArrivalView1"
+        android:layout_alignLeft="@+id/adapterTrainArrivalView2"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dip"
+        android:id="@+id/adapterTrainArrival"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Departure :- 00:00:00"
+        android:layout_below="@+id/adapterTrainArrivalView1"
+        android:layout_alignRight="@+id/adapterTrainArrivalView2"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dip"
+        android:id="@+id/adapterTrainDeparture"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Duration :- XX Minutes"
+        android:id="@+id/adapterTrainDuration"
+        android:layout_below="@+id/adapterTrainDeparture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Type :- Long Distance"
+        android:id="@+id/adapterTrainType"
+        android:layout_below="@+id/adapterTrainDuration"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Description :- Daily"
+        android:id="@+id/adapterTrainDescription"
+        android:layout_below="@+id/adapterTrainType"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Destination :- Any Place"
+        android:id="@+id/adapterTrainDestination"
+        android:layout_below="@+id/adapterTrainDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
