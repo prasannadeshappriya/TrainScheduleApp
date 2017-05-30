@@ -78,7 +78,11 @@ public class GetScheduleTask extends Task {
                         String endTime[] = tds.get(4).text().split(" ");
                         schedule.setEnd(endTime[(endTime.length)-1]);
 
-                        schedule.setDestination(tds.get(3).text());
+                        String DesTime[] = tds.get(3).text().split(" ");
+                        schedule.setEnd(endTime[(DesTime.length)-1]);
+                        schedule.setDestination(DesTime[0] + " ["+DesTime[(DesTime.length)-1] + "]");
+
+
                         schedule.setType(tds.get(7).text());
                         schedule.setName(tds.get(6).text());
                         schedule.setDescription(tds.get(5).text());

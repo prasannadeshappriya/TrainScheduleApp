@@ -66,6 +66,7 @@ public class TrainScheduleViewFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+                    trainScheduleFragment.setAutoCompleteTextValues(hashDesc);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(android.R.anim.slide_in_left,
                             android.R.anim.slide_out_right);
