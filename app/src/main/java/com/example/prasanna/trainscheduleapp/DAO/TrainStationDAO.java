@@ -59,4 +59,20 @@ public class TrainStationDAO extends DAO {
         printLog(arrTrainStations.size() + " data successfully inserted");
         printLog("Train station insert process completed");
     }
+
+    public ArrayList<String> getTrainStationNameArray(){
+        command = "SELECT station_name FROM " + tableName + " WHERE 1;";
+        printLog("Query[getTrainStationNameArray] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        printLog("Cursor count [getTrainStationNameArray] :- " + c.getCount());
+
+        ArrayList<String> arrTrainStations = new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                arrTrainStations.add(
+                        c.getString(c.getColumnIndex("station_name")));
+            } while (c.moveToNext());
+        }
+        return arrTrainStations;
+    }
 }
