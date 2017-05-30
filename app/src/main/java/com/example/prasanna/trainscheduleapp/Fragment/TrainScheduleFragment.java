@@ -181,7 +181,8 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
                     getContext(), pd,
                     fromCode,toCode,
                     fromTime, toTime,
-                    todayDate, this
+                    todayDate, this,
+                    tvFromStation.getText().toString()
             );
             sheduleTask.execute();
             printLog("Call Schedule Task With [FromCode-" + fromCode + ", ToCode-" + toCode + ", FromTime-" + fromTime + ", ToTime-" + toTime + ", TodayDate-" + todayDate + "]");

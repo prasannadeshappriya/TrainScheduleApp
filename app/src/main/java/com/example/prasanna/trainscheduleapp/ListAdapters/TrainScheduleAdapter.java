@@ -52,17 +52,32 @@ public class TrainScheduleAdapter extends BaseAdapter {
 
         TrainSchedule schedule = arrTrainSchedule.get(position);
 
-        tvName.setText("Train Name :- " + schedule.getNumber());
+        if(schedule.getNumber().equals("")){
+            tvName.setText("Connecting Trains");
+        }else {
+            tvName.setText("Train Name :- " + schedule.getNumber());
+        }
         tvArrival.setText("Arrival :- " + schedule.getArrival());
         tvDepature.setText("Destination :- " + schedule.getEnd());
-        tvType.setText("Type :- " + schedule.getType());
-        if(schedule.getName().toString().replace(" ","").equals("")){
-            tvDescription.setText("Description :- " + schedule.getDescription());
+        if(schedule.getType().equals("")){
+            tvType.setVisibility(View.GONE);
         }else {
-            tvDescription.setText("Description :- " + schedule.getDescription() + " [" + schedule.getName() + "]");
+            tvType.setText("Type :- " + schedule.getType());
         }
-        tvDestination.setText("End :- " + schedule.getDestination());
-
+        if(schedule.getDescription().equals("")){
+            tvDescription.setVisibility(View.GONE);
+        }else {
+            if (schedule.getName().toString().replace(" ", "").equals("")) {
+                tvDescription.setText("Description :- " + schedule.getDescription());
+            } else {
+                tvDescription.setText("Description :- " + schedule.getDescription() + " [" + schedule.getName() + "]");
+            }
+        }
+        if(schedule.getDestination().equals("")) {
+            tvDestination.setVisibility(View.GONE);
+        }else {
+            tvDestination.setText("End :- " + schedule.getDestination());
+        }
         return v;
     }
 }

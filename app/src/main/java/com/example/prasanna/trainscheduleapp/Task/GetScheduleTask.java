@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
@@ -28,6 +29,7 @@ public class GetScheduleTask extends Task {
     private String currentDate;
     private ArrayList<TrainSchedule> arrTrainSchedle;
     private TrainScheduleFragment fragment;
+    private String fromStationName;
 
     public GetScheduleTask(Context _context, ProgressDialog _pd,
                            String fromStationCode,
@@ -35,7 +37,8 @@ public class GetScheduleTask extends Task {
                            String startTime,
                            String endTime,
                            String currentDate,
-                           TrainScheduleFragment fragment) {
+                           TrainScheduleFragment fragment,
+                           String fromStationName) {
         super(_context, _pd);
 
         this.fromStationCode = fromStationCode;
@@ -44,6 +47,7 @@ public class GetScheduleTask extends Task {
         this.endTime = endTime;
         this.currentDate = currentDate;
         this.fragment = fragment;
+        this.fromStationName = fromStationName;
     }
 
     @Override
@@ -79,9 +83,7 @@ public class GetScheduleTask extends Task {
                         schedule.setEnd(endTime[(endTime.length)-1]);
 
                         String DesTime[] = tds.get(3).text().split(" ");
-                        schedule.setEnd(endTime[(DesTime.length)-1]);
                         schedule.setDestination(DesTime[0] + " ["+DesTime[(DesTime.length)-1] + "]");
-
 
                         schedule.setType(tds.get(7).text());
                         schedule.setName(tds.get(6).text());
@@ -100,6 +102,21 @@ public class GetScheduleTask extends Task {
                             }
                         }
                     }
+
+                    if(tds.size()>4) {
+                        if(fromStationName.equals(tds.get(0).text())){
+                            TrainSchedule conn_schedule = new TrainSchedule();
+                            conn_schedule.setNumber("");
+                            conn_schedule.setArrival(tds.get(1).text());
+                            conn_schedule.setEnd(tds.get(4).text());
+                            conn_schedule.setDestination("");
+                            conn_schedule.setType("");
+                            conn_schedule.setName("");
+                            conn_schedule.setDescription("");
+                            arrTrainSchedle.add(conn_schedule);
+                        }
+                    }
+
                 }
             }
         }catch (Exception e){
