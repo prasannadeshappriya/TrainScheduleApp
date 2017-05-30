@@ -8,11 +8,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
+import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.R;
+import com.example.prasanna.trainscheduleapp.Utilities.Constants;
+import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,8 +27,13 @@ public class HomeActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private TrainStationDAO trainStationDAO;
 
+    private void printLog(String message){
+        Log.i(Constants.TAG,"[HomeActivity] " + message);
+    }
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -38,8 +50,13 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //-------------------------------------------------------------------------
 
+        trainStationDAO = new TrainStationDAO(this);
+        //-------------------------------------------------------------------------
+        if(trainStationDAO.isEmpty()){
+            printLog("Train Station Database is empty, Initializing..");
+            startInitTrainStations();
+        }
         showTrainScheduleFragment();
     }
 
@@ -99,5 +116,9 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void startInitTrainStations(){
+        trainStationDAO.addTrainStations(TrainStations.getStationArray());
     }
 }
