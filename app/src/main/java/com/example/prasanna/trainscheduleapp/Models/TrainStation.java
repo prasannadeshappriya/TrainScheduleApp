@@ -8,6 +8,7 @@ public class TrainStation {
     private long id;
     private String stationName;
     private String stationID;
+    private String stationCode;
 
     public TrainStation(long id, String stationID, String stationName) {
         this.id = id;
@@ -15,9 +16,23 @@ public class TrainStation {
         this.stationName = stationName;
     }
 
+    public TrainStation(String stationID, String stationName, String stationCode) {
+        this.stationID = stationID;
+        this.stationName = stationName;
+        this.stationCode = stationCode;
+    }
+
     public TrainStation(String stationID, String stationName) {
         this.stationID = stationID;
         this.stationName = stationName;
+    }
+
+    public String getStationCode() {
+        return stationCode;
+    }
+
+    public void setStationCode(String stationCode) {
+        this.stationCode = stationCode;
     }
 
     public long getId() {

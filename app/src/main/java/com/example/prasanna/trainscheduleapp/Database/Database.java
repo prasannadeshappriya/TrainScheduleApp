@@ -37,6 +37,7 @@ public class Database extends SQLiteOpenHelper {
         sqlCommand = "CREATE TABLE IF NOT EXISTS train_stations (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "station_code VARCHAR(10), " +
+                "station_key VARCHAR(50), " +
                 "station_name VARCHAR(255));";
         printLog(CREATE, "train_stations", sqlCommand);
         db.execSQL(sqlCommand);
