@@ -21,11 +21,11 @@ public abstract class CompareTime {
                     }else if(Integer.parseInt(timeArr1[1])<Integer.parseInt(timeArr2[1])){
                         return false;
                     }else if(Integer.parseInt(timeArr1[1])==Integer.parseInt(timeArr2[1])){
-                        if(Integer.parseInt(timeArr1[3])>Integer.parseInt(timeArr2[3])){
+                        if(Integer.parseInt(timeArr1[2])>Integer.parseInt(timeArr2[2])){
                             return true;
-                        }else if(Integer.parseInt(timeArr1[3])<Integer.parseInt(timeArr2[3])){
+                        }else if(Integer.parseInt(timeArr1[2])<Integer.parseInt(timeArr2[2])){
                             return false;
-                        }else if(Integer.parseInt(timeArr1[3])==Integer.parseInt(timeArr2[3])){
+                        }else if(Integer.parseInt(timeArr1[2])==Integer.parseInt(timeArr2[2])){
                             return true;
                         }
                     }

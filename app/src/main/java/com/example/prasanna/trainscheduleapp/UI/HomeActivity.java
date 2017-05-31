@@ -11,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.prasanna.trainscheduleapp.DAO.SearchHistoryDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.HistoryFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
@@ -77,20 +79,20 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -101,15 +103,20 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_train_schedule) {
             showTrainScheduleFragment();
         } else if (id == R.id.nav_schedule_history) {
-            HistoryFragment historyFragment = new HistoryFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frmMain,historyFragment,Constants.FRAGMENT_TRAIN_HISTORY);
-            toolbar.setTitle("History");
-            transaction.commit();
+            SearchHistoryDAO searchHistoryDAO = new SearchHistoryDAO(this);
+            if(searchHistoryDAO.isHistoryNull()){
+                Toast.makeText(this,"No records available!",Toast.LENGTH_LONG).show();
+            }else {
+                HistoryFragment historyFragment = new HistoryFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frmMain, historyFragment, Constants.FRAGMENT_TRAIN_HISTORY);
+                toolbar.setTitle("History");
+                transaction.commit();
+            }
         } else if (id == R.id.nav_feedback) {
             FeedBackFragment feedBackFragment = new FeedBackFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frmMain,feedBackFragment,Constants.FRAGMENT_FEEDBACK);
+            transaction.replace(R.id.frmMain, feedBackFragment, Constants.FRAGMENT_FEEDBACK);
             toolbar.setTitle("Feedback");
             transaction.commit();
         }

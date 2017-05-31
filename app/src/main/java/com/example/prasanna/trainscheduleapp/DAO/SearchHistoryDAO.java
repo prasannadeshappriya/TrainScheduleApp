@@ -43,6 +43,19 @@ public class SearchHistoryDAO extends DAO {
         return 0;
     }
 
+    public boolean isHistoryNull(){
+        command = "SELECT * FROM " + tableName + " WHERE 1;";
+        printLog("Check for train History null :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        if(c.getCount()>0){
+            c.close();
+            return false;
+        }else{
+            c.close();
+            return true;
+        }
+    }
+
     public boolean isHistoryExist(String fromStation, String toStation){
         command = "SELECT * FROM " + tableName + " WHERE start_station=\"" + fromStation + "\" AND end_station=\"" + toStation + "\";";
         printLog("Check for train History availability :- " + command);

@@ -5,9 +5,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_train_schedule"
+            android:icon="@drawable/ic_stat_schedule"
             android:title="Train Schedule" />
         <item
             android:id="@+id/nav_schedule_history"
+            android:icon="@drawable/ic_stat_history"
             android:title="History" />
         <!--<item-->
         <!--android:id="@+id/nav_slideshow"-->
@@ -27,7 +29,7 @@
             <!--android:title="Share" />-->
             <item
                 android:id="@+id/nav_feedback"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_stat_feedback"
                 android:title="Feedback" />
         </menu>
     </item>

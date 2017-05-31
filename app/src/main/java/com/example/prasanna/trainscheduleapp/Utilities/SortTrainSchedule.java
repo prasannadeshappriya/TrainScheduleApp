@@ -19,11 +19,13 @@ public abstract class SortTrainSchedule {
             for(int i=1; i<arrTrainSchedule.size(); i++){
                 String time1 = arrTrainSchedule.get(i-1).getArrival();
                 String time2 = arrTrainSchedule.get(i).getArrival();
-                if(CompareTime.compareTime(time1,time2)){
-                    con = true;
-                    TrainSchedule tmp = arrTrainSchedule.get(i);
-                    arrTrainSchedule.set(i,arrTrainSchedule.get(i-1));
-                    arrTrainSchedule.set(i-1,tmp);
+                if(!time1.equals(time2)) {
+                    if (CompareTime.compareTime(time1, time2)) {
+                        con = true;
+                        TrainSchedule tmp = arrTrainSchedule.get(i);
+                        arrTrainSchedule.set(i, arrTrainSchedule.get(i - 1));
+                        arrTrainSchedule.set(i - 1, tmp);
+                    }
                 }
             }
         }
