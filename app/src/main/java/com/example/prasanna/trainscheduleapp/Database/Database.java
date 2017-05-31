@@ -40,6 +40,24 @@ public class Database extends SQLiteOpenHelper {
                 "station_name VARCHAR(255));";
         printLog(CREATE, "train_stations", sqlCommand);
         db.execSQL(sqlCommand);
+
+        sqlCommand = "CREATE TABLE IF NOT EXISTS search_history (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "start_station VARCHAR(100), " +
+                "end_station VARCHAR(100));";
+        printLog(CREATE, "search_history", sqlCommand);
+        db.execSQL(sqlCommand);
+
+        sqlCommand = "CREATE TABLE IF NOT EXISTS search_history_details (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "train_name VARCHAR(255), " +
+                "train_arrival VARCHAR(100), " +
+                "train_destination VARCHAR(255), " +
+                "train_type VARCHAR(100), " +
+                "train_description VARCHAR(255), " +
+                "train_end VARCHAR(255));";
+        printLog(CREATE, "search_history_details", sqlCommand);
+        db.execSQL(sqlCommand);
     }
 
     @Override
