@@ -23,10 +23,8 @@ import android.widget.Toast;
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.DialogFragments.CalenderFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
-import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Task.CheckInternetTask;
-import com.example.prasanna.trainscheduleapp.Task.GetScheduleTask;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
 

@@ -5,13 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.provider.SyncStateContract;
 import android.util.Log;
 
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
-import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
 
 import java.util.ArrayList;
 

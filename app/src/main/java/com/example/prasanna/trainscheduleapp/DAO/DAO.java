@@ -2,7 +2,6 @@ package com.example.prasanna.trainscheduleapp.DAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.example.prasanna.trainscheduleapp.Database.Database;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 

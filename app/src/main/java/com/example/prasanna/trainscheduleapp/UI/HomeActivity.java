@@ -1,8 +1,5 @@
 package com.example.prasanna.trainscheduleapp.UI;
 
-import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.R;
