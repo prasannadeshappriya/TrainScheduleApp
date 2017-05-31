@@ -34,4 +34,21 @@ public abstract class CompareTime {
         }
         return true;
     }
+
+    public static boolean isEqual(String time1, String time2){
+        String timeArr1[] = time1.split(":");
+        String timeArr2[] = time2.split(":");
+        if (timeArr1.length>2){
+            if (timeArr2.length>2){
+                if(timeArr1[0].equals(timeArr2[0])){
+                    if(timeArr1[1].equals(timeArr2[1])){
+                        if(timeArr1[2].equals(timeArr2[2])){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

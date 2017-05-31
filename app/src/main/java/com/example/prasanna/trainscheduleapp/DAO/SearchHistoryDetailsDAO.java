@@ -42,6 +42,12 @@ public class SearchHistoryDetailsDAO extends DAO{
         }
     }
 
+    public void deleteTrainHistory(Long search_id){
+        command = "DELETE FROM " + tableName + " WHERE search_id=\"" + search_id + "\";";
+        printLog("Query[deleteTrainHistory] :- " + command);
+        sqldb.execSQL(command);
+    }
+
     public void addSearchHistoryDetails(TrainSchedule schedule, Long search_id){
         ContentValues contentValues = new ContentValues();
         contentValues.put("search_id",String.valueOf(search_id));
