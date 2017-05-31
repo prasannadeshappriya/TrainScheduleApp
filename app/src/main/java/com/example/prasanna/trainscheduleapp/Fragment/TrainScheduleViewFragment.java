@@ -27,7 +27,13 @@ public class TrainScheduleViewFragment extends Fragment {
     private ListView lstTrainSchedule;
     private TextView tvTrainScheduleDesc;
     private TextView tvTrainScheduleDate;
+    private TextView tvOfflineOnlineState;
     private HashMap<String,String> hashDesc;
+    private boolean isOnline;
+
+    public void setOnlineOfflineState(boolean _isOnline){
+        isOnline = _isOnline;
+    }
 
     @Nullable
     @Override
@@ -40,6 +46,14 @@ public class TrainScheduleViewFragment extends Fragment {
         }
         tvTrainScheduleDesc = (TextView) view.findViewById(R.id.tvTrainScheduleDesc);
         tvTrainScheduleDate = (TextView) view.findViewById(R.id.tvTrainScheduleDate);
+        tvOfflineOnlineState = (TextView) view.findViewById(R.id.tvOfflineStatus);
+
+        if(isOnline){
+            tvOfflineOnlineState.setVisibility(View.GONE);
+        }else{
+            tvOfflineOnlineState.setVisibility(View.VISIBLE);
+        }
+
         tvTrainScheduleDesc.setText(
                         hashDesc.get("from_station") + " - " +
                         hashDesc.get("to_station")

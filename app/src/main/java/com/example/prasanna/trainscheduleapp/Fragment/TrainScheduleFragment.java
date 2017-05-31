@@ -24,6 +24,7 @@ import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.DialogFragments.CalenderFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.R;
+import com.example.prasanna.trainscheduleapp.Task.CheckInternetTask;
 import com.example.prasanna.trainscheduleapp.Task.GetScheduleTask;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 
@@ -150,6 +151,8 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     }
 
     private void search() {
+        tvToStation.setText(tvToStation.getText().toString().toUpperCase());
+        tvFromStation.setText(tvFromStation.getText().toString().toUpperCase());
         boolean con = true;
         if(tvToStation.getText().toString().replace(" ","").equals("")){
             Toast.makeText(getContext(), "Select a valid station name!", Toast.LENGTH_LONG).show();
@@ -174,22 +177,28 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
             String todayDate = tvDate.getText().toString();
             String todayTime = String.format("%1$tH:%1$tM:%1$tS", now);
 
-            String fromTime = "00:00:00";
+            String fromTime;
+            if(chkDailySchedule.isChecked()) {
+                fromTime = "00:00:00";
+            }else{
+                fromTime = todayTime;
+            }
             String toTime = "23:59:59";
 
-            GetScheduleTask sheduleTask = new GetScheduleTask(
+            CheckInternetTask sheduleTask = new CheckInternetTask(
                     getContext(), pd,
                     fromCode,toCode,
                     fromTime, toTime,
                     todayDate, this,
-                    tvFromStation.getText().toString()
+                    tvFromStation.getText().toString(),
+                    chkNextTrain.isChecked()
             );
             sheduleTask.execute();
             printLog("Call Schedule Task With [FromCode-" + fromCode + ", ToCode-" + toCode + ", FromTime-" + fromTime + ", ToTime-" + toTime + ", TodayDate-" + todayDate + "]");
         }
     }
 
-    public void viewTrainScheduleFragment(ArrayList<TrainSchedule> arrTrainScheduleResult){
+    public void viewTrainScheduleFragment(ArrayList<TrainSchedule> arrTrainScheduleResult, boolean isOnline){
         TrainScheduleViewFragment trainScheduleViewFragment = new TrainScheduleViewFragment();
 
         //Tempory Hardcode Data
@@ -202,6 +211,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         map.put("to_station", tvToStation.getText().toString());
         map.put("date",todayDate);
         trainScheduleViewFragment.setTrainScheduleDesc(map);
+        trainScheduleViewFragment.setOnlineOfflineState(isOnline);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frmMain, trainScheduleViewFragment);

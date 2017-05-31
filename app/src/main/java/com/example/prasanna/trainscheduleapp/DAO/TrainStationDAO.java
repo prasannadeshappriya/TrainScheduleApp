@@ -39,6 +39,20 @@ public class TrainStationDAO extends DAO {
         return "null";
     }
 
+    public String getTrainStationName(String trainStationID){
+        command = "SELECT station_name FROM " + tableName + " WHERE station_code = \"" + trainStationID + "\";";
+        printLog("Query[getTrainStationName] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        printLog("Cursor count [getTrainStationName] :- " + c.getCount());
+
+        if(c.moveToFirst()) {
+            do {
+                return c.getString(c.getColumnIndex("station_name"));
+            } while (c.moveToNext());
+        }
+        return "null";
+    }
+
     private void printLog(String message){
         Log.i(Constants.TAG,"[TrainStationDAO] " + message);
     }

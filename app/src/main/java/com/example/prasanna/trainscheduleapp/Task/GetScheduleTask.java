@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.prasanna.trainscheduleapp.DAO.SearchHistoryDAO;
+import com.example.prasanna.trainscheduleapp.DAO.SearchHistoryDetailsDAO;
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
@@ -30,6 +32,10 @@ public class GetScheduleTask extends Task {
     private ArrayList<TrainSchedule> arrTrainSchedle;
     private TrainScheduleFragment fragment;
     private String fromStationName;
+    private SearchHistoryDAO historyDAO;
+    private SearchHistoryDetailsDAO historyDetailsDAO;
+    private TrainStationDAO stationDAO;
+    private boolean isRequiredFiltered;
 
     public GetScheduleTask(Context _context, ProgressDialog _pd,
                            String fromStationCode,
@@ -38,7 +44,7 @@ public class GetScheduleTask extends Task {
                            String endTime,
                            String currentDate,
                            TrainScheduleFragment fragment,
-                           String fromStationName) {
+                           String fromStationName, boolean isRequiredFiltered) {
         super(_context, _pd);
 
         this.fromStationCode = fromStationCode;
@@ -48,16 +54,17 @@ public class GetScheduleTask extends Task {
         this.currentDate = currentDate;
         this.fragment = fragment;
         this.fromStationName = fromStationName;
+        this.isRequiredFiltered = isRequiredFiltered;
     }
 
     @Override
     protected void onPreExecute() {
-        pd.setIndeterminate(true);
-        pd.setCanceledOnTouchOutside(false);
         pd.setMessage("Please wait");
-        pd.show();
         printLog("Web Scrapping started");
         arrTrainSchedle = new ArrayList<>();
+        historyDAO = new SearchHistoryDAO(context);
+        historyDetailsDAO = new SearchHistoryDetailsDAO(context);
+        stationDAO = new TrainStationDAO(context);
     }
 
     @Override
@@ -129,8 +136,25 @@ public class GetScheduleTask extends Task {
     protected void onPostExecute(Void aVoid) {
         pd.dismiss();
         printLog("Web Scrapping Finished");
-        fragment.viewTrainScheduleFragment(arrTrainSchedle);
+        if(arrTrainSchedle.isEmpty()){
+            printLog("Server results empty, Loading offline details..");
+            String  fromStationName = stationDAO.getTrainStationName(fromStationCode);
+            String toStationName = stationDAO.getTrainStationName(toStationCode);
+            Long id = historyDAO.getID(fromStationName, toStationName);
+            if(isRequiredFiltered){
+                arrTrainSchedle = historyDetailsDAO.getFilteredTrainScheduleArray(id,startTime);
+            }else {
+                arrTrainSchedle = historyDetailsDAO.getTrainScheduleArray(id);
+            }
+            fragment.viewTrainScheduleFragment(arrTrainSchedle, false);
+        }else{
+            fragment.viewTrainScheduleFragment(arrTrainSchedle, true);
+        }
         printLog("Web Scrapping Finished");
+        SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask(
+                context,pd,arrTrainSchedle,toStationCode,fromStationCode
+        );
+        syncDatabaseTask.execute();
     }
 
     private void printLog(String message){

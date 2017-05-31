@@ -50,10 +50,12 @@ public class Database extends SQLiteOpenHelper {
 
         sqlCommand = "CREATE TABLE IF NOT EXISTS search_history_details (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "search_id VARCHAR(100), " +
                 "train_name VARCHAR(255), " +
                 "train_arrival VARCHAR(100), " +
                 "train_destination VARCHAR(255), " +
                 "train_type VARCHAR(100), " +
+                "train_number VARCHAR(100), " +
                 "train_description VARCHAR(255), " +
                 "train_end VARCHAR(255));";
         printLog(CREATE, "search_history_details", sqlCommand);
