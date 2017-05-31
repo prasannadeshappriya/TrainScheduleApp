@@ -103,7 +103,7 @@ public class GetScheduleTask extends Task {
                         }
                     }
 
-                    if(tds.size()>4) {
+                    if(tds.size()>4 && tds.size()<7) {
                         if(fromStationName.equals(tds.get(0).text())){
                             TrainSchedule conn_schedule = new TrainSchedule();
                             conn_schedule.setNumber("");

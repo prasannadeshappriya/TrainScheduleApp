@@ -13,8 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
+import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
-import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
@@ -108,7 +108,10 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_train_schedule) {
             showTrainScheduleFragment();
         } else if (id == R.id.nav_schedule_history) {
-
+            FeedBackFragment feedBackFragment = new FeedBackFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain,feedBackFragment);
+            transaction.commit();
         } else if (id == R.id.nav_feedback) {
 
         }
