@@ -1,5 +1,8 @@
 package com.example.prasanna.trainscheduleapp.UI;
 
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -17,9 +20,6 @@ import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
-import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
-
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,7 +27,6 @@ public class HomeActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private TrainStationDAO trainStationDAO;
 
     private void printLog(String message){
         Log.i(Constants.TAG,"[HomeActivity] " + message);
@@ -50,20 +49,16 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        trainStationDAO = new TrainStationDAO(this);
         //-------------------------------------------------------------------------
-        if(trainStationDAO.isEmpty()){
-            printLog("Train Station Database is empty, Initializing..");
-            startInitTrainStations();
-        }
+
+        printLog("Starting train schedule fragment");
         showTrainScheduleFragment();
     }
 
     public void showTrainScheduleFragment(){
         TrainScheduleFragment scheduleFragment = new TrainScheduleFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frmMain,scheduleFragment);
+        transaction.replace(R.id.frmMain,scheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
         transaction.commit();
     }
 
@@ -110,7 +105,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_schedule_history) {
             FeedBackFragment feedBackFragment = new FeedBackFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frmMain,feedBackFragment);
+            transaction.replace(R.id.frmMain,feedBackFragment,Constants.FRAGMENT_FEEDBACK);
             transaction.commit();
         } else if (id == R.id.nav_feedback) {
 
@@ -119,9 +114,5 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void startInitTrainStations(){
-        trainStationDAO.addTrainStations(TrainStations.getStationArray());
     }
 }

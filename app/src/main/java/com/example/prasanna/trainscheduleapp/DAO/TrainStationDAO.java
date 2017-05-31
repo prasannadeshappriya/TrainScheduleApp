@@ -1,13 +1,17 @@
 package com.example.prasanna.trainscheduleapp.DAO;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.provider.SyncStateContract;
 import android.util.Log;
 
+import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
+import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
 
 import java.util.ArrayList;
 
@@ -70,22 +74,49 @@ public class TrainStationDAO extends DAO {
         }
     }
 
-    private void addStation(TrainStation station){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("station_code",station.getStationID());
-        contentValues.put("station_name",station.getStationName());
-        sqldb.insert(
-                tableName, null, contentValues
-        );
+    private class addTrainStations extends AsyncTask<Void,Void,Void> {
+        ProgressDialog pd;
+        ArrayList<TrainStation> arrTrainStations;
+        TrainScheduleFragment fragment;
+        addTrainStations(ProgressDialog pd, ArrayList<TrainStation> arrTrainStations,TrainScheduleFragment fragment){
+            this.pd = pd;
+            this.arrTrainStations = arrTrainStations;
+            this.fragment = fragment;
+        }
+        @Override
+        protected void onPreExecute() {
+            printLog("Train station insert process started");
+            pd.setIndeterminate(true);
+            pd.setCanceledOnTouchOutside(false);
+            pd.setMessage("Initializing..");
+            pd.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(TrainStation station : arrTrainStations){
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("station_code",station.getStationID());
+                contentValues.put("station_name",station.getStationName());
+                sqldb.insert(
+                        tableName, null, contentValues
+                );
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            pd.dismiss();
+            printLog(arrTrainStations.size() + " data successfully inserted");
+            printLog("Train station insert process completed");
+            fragment.reInitializeObjects();
+        }
     }
 
-    public void addTrainStations(ArrayList<TrainStation> arrTrainStations){
-        printLog("Train station insert process started");
-        for(TrainStation station : arrTrainStations){
-            addStation(station);
-        }
-        printLog(arrTrainStations.size() + " data successfully inserted");
-        printLog("Train station insert process completed");
+    public void addStations (ArrayList<TrainStation> arrTrainStations, ProgressDialog pd, TrainScheduleFragment fragment){
+        addTrainStations addStationProcess = new addTrainStations(pd,arrTrainStations,fragment);
+        addStationProcess.execute();
     }
 
     public ArrayList<String> getTrainStationNameArray(){

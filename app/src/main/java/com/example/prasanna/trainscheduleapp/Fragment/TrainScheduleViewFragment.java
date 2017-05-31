@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.prasanna.trainscheduleapp.ListAdapters.TrainScheduleAdapter;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.R;
+import com.example.prasanna.trainscheduleapp.Utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,7 +85,7 @@ public class TrainScheduleViewFragment extends Fragment {
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(android.R.anim.slide_in_left,
                             android.R.anim.slide_out_right);
-                    transaction.replace(R.id.frmMain,trainScheduleFragment);
+                    transaction.replace(R.id.frmMain,trainScheduleFragment, Constants.FRAGMENT_TRAIN_SCHEDULE);
                     transaction.commit();
                     return true;
                 }

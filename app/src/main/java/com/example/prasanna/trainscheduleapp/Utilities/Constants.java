@@ -24,4 +24,9 @@ public abstract class Constants {
     public static final String SERVER_TOKEN = "sd832onsas9d1n23ld2ffwefwefcwfadlsnnio21dNEJNOCFOIEWOFJOIJOQIEWJFQ8156516516!@#@$@#%^$l23n4l23";
     public static final String SERVER_HOST_URL = "http://train-schedule-v10.herokuapp.com/train_schedule_feedback";
     public static final String SERVER_LOCAL_URL = "http://10.0.2.2:8000/train_schedule_feedback";
+
+    //Fragment Tag names
+    public static final String FRAGMENT_TRAIN_SCHEDULE = "train_schedule";
+    public static final String FRAGMENT_FEEDBACK = "feedback";
+    public static final String FRAGMENT_TRAIN_SCHEDULE_VIEW = "train_schedule_view";
 }

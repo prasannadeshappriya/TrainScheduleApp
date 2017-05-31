@@ -23,10 +23,12 @@ import android.widget.Toast;
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
 import com.example.prasanna.trainscheduleapp.DialogFragments.CalenderFragment;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
+import com.example.prasanna.trainscheduleapp.Models.TrainStation;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Task.CheckInternetTask;
 import com.example.prasanna.trainscheduleapp.Task.GetScheduleTask;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
+import com.example.prasanna.trainscheduleapp.Utilities.TrainStations;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +52,17 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     private HashMap<String,String> arrData;
     private Boolean isUpdate;
 
+    private void startInitTrainStations(){
+        ProgressDialog pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
+        trainStationDAO.addStations(TrainStations.getStationArray(),pd,this);
+    }
+
+    public void reInitializeObjects(){
+        printLog("Re initialize main data access objects");
+        trainStationDAO = new TrainStationDAO(getContext());
+        initializeArrays();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,8 +82,14 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         if(arrData==null){arrData = new HashMap<>();}
         if(isUpdate==null ? isUpdate=false : isUpdate);
 
-        //Initialize auto complete text boxes
-        initializeArrays();
+        if(trainStationDAO.isEmpty()){
+            printLog("Train Station Database is empty, Initializing..");
+            startInitTrainStations();
+        }else{
+            printLog("Train station database contain data, Bind data to the text boxes");
+            //Initialize auto complete text boxes
+            initializeArrays();
+        }
 
         //Listeners
         btnSearch.setOnClickListener(
@@ -185,7 +204,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
             }
             String toTime = "23:59:59";
 
-            CheckInternetTask sheduleTask = new CheckInternetTask(
+            CheckInternetTask scheduleTask = new CheckInternetTask(
                     getContext(), pd,
                     fromCode,toCode,
                     fromTime, toTime,
@@ -193,15 +212,18 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
                     tvFromStation.getText().toString(),
                     chkNextTrain.isChecked()
             );
-            sheduleTask.execute();
-            printLog("Call Schedule Task With [FromCode-" + fromCode + ", ToCode-" + toCode + ", FromTime-" + fromTime + ", ToTime-" + toTime + ", TodayDate-" + todayDate + "]");
+            scheduleTask.execute();
+            printLog("Call Schedule Task With [FromCode-" + fromCode +
+                    ", ToCode-" + toCode +
+                    ", FromTime-" + fromTime +
+                    ", ToTime-" + toTime +
+                    ", TodayDate-" + todayDate + "]");
         }
     }
 
     public void viewTrainScheduleFragment(ArrayList<TrainSchedule> arrTrainScheduleResult, boolean isOnline){
         TrainScheduleViewFragment trainScheduleViewFragment = new TrainScheduleViewFragment();
 
-        //Tempory Hardcode Data
         Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT+5:30"));
         String todayDate = String.format("%1$tY-%1$tm-%1$td", now);
 
@@ -214,7 +236,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         trainScheduleViewFragment.setOnlineOfflineState(isOnline);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frmMain, trainScheduleViewFragment);
+        transaction.replace(R.id.frmMain, trainScheduleViewFragment, Constants.FRAGMENT_TRAIN_SCHEDULE_VIEW);
         transaction.commit();
     }
 
