@@ -149,12 +149,12 @@ public class GetScheduleTask extends Task {
             fragment.viewTrainScheduleFragment(arrTrainSchedle, false);
         }else{
             fragment.viewTrainScheduleFragment(arrTrainSchedle, true);
+            SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask(
+                    context,pd,arrTrainSchedle,toStationCode,fromStationCode
+            );
+            syncDatabaseTask.execute();
         }
         printLog("Web Scrapping Finished");
-        SyncDatabaseTask syncDatabaseTask = new SyncDatabaseTask(
-                context,pd,arrTrainSchedle,toStationCode,fromStationCode
-        );
-        syncDatabaseTask.execute();
     }
 
     private void printLog(String message){

@@ -232,6 +232,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         map.put("date",todayDate);
         trainScheduleViewFragment.setTrainScheduleDesc(map);
         trainScheduleViewFragment.setOnlineOfflineState(isOnline);
+        trainScheduleViewFragment.setFragmentTag(Constants.FRAGMENT_TRAIN_SCHEDULE);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frmMain, trainScheduleViewFragment, Constants.FRAGMENT_TRAIN_SCHEDULE_VIEW);

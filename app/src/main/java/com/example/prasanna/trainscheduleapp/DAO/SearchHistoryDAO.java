@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.example.prasanna.trainscheduleapp.Models.TrainHistory;
+import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by prasanna on 5/31/17.
@@ -60,5 +64,24 @@ public class SearchHistoryDAO extends DAO {
                 tableName, null, contentValues
         );
         return getID(fromStation,toStation);
+    }
+
+    public ArrayList<TrainHistory> getTrainHistoryArray(){
+        command = "SELECT * FROM " + tableName + " WHERE 1;";
+        printLog("Query[getTrainHistoryArray] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        printLog("Cursor count [getTrainHistoryArray] :- " + c.getCount());
+
+        ArrayList<TrainHistory> arrTrainHistory = new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                arrTrainHistory.add(
+                        new TrainHistory(
+                                c.getString(c.getColumnIndex("start_station")),
+                                c.getString(c.getColumnIndex("end_station"))
+                        ));
+            } while (c.moveToNext());
+        }
+        return arrTrainHistory;
     }
 }

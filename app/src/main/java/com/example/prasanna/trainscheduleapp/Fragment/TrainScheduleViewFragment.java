@@ -15,6 +15,7 @@ import com.example.prasanna.trainscheduleapp.ListAdapters.TrainScheduleAdapter;
 import com.example.prasanna.trainscheduleapp.Models.TrainSchedule;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
+import com.example.prasanna.trainscheduleapp.Utilities.SortTrainSchedule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,11 +31,13 @@ public class TrainScheduleViewFragment extends Fragment {
     private TextView tvTrainScheduleDate;
     private TextView tvOfflineOnlineState;
     private HashMap<String,String> hashDesc;
+    private String fragmentTag;
     private boolean isOnline;
 
     public void setOnlineOfflineState(boolean _isOnline){
         isOnline = _isOnline;
     }
+    public void setFragmentTag(String tag){this.fragmentTag = tag;}
 
     @Nullable
     @Override
@@ -42,6 +45,7 @@ public class TrainScheduleViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_train_schedule_view,container,false);
         lstTrainSchedule = (ListView) view.findViewById(R.id.lstTrainSchedule);
         if(arrTrainSchedle!=null) {
+            arrTrainSchedle = SortTrainSchedule.sortTrainTimesAsc(arrTrainSchedle);
             TrainScheduleAdapter adapter = new TrainScheduleAdapter(getContext(), arrTrainSchedle);
             lstTrainSchedule.setAdapter(adapter);
         }
@@ -80,14 +84,24 @@ public class TrainScheduleViewFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
-                    trainScheduleFragment.setAutoCompleteTextValues(hashDesc);
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.setCustomAnimations(android.R.anim.slide_in_left,
-                            android.R.anim.slide_out_right);
-                    transaction.replace(R.id.frmMain,trainScheduleFragment, Constants.FRAGMENT_TRAIN_SCHEDULE);
-                    transaction.commit();
-                    return true;
+                    if(fragmentTag.equals(Constants.FRAGMENT_TRAIN_SCHEDULE)) {
+                        TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+                        trainScheduleFragment.setAutoCompleteTextValues(hashDesc);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right);
+                        transaction.replace(R.id.frmMain, trainScheduleFragment, Constants.FRAGMENT_TRAIN_SCHEDULE);
+                        transaction.commit();
+                        return true;
+                    }else if(fragmentTag.equals(Constants.FRAGMENT_TRAIN_HISTORY)){
+                        HistoryFragment historyFragment = new HistoryFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right);
+                        transaction.replace(R.id.frmMain, historyFragment, Constants.FRAGMENT_TRAIN_SCHEDULE);
+                        transaction.commit();
+                        return true;
+                    }
                 }
                 return false;
             }

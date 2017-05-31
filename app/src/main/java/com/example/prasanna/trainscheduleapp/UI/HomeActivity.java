@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
+import com.example.prasanna.trainscheduleapp.Fragment.HistoryFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
@@ -55,6 +56,7 @@ public class HomeActivity extends AppCompatActivity
         TrainScheduleFragment scheduleFragment = new TrainScheduleFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frmMain,scheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
+        toolbar.setTitle("Train Schedule");
         transaction.commit();
     }
 
@@ -99,12 +101,17 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_train_schedule) {
             showTrainScheduleFragment();
         } else if (id == R.id.nav_schedule_history) {
+            HistoryFragment historyFragment = new HistoryFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain,historyFragment,Constants.FRAGMENT_TRAIN_HISTORY);
+            toolbar.setTitle("History");
+            transaction.commit();
+        } else if (id == R.id.nav_feedback) {
             FeedBackFragment feedBackFragment = new FeedBackFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frmMain,feedBackFragment,Constants.FRAGMENT_FEEDBACK);
+            toolbar.setTitle("Feedback");
             transaction.commit();
-        } else if (id == R.id.nav_feedback) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
