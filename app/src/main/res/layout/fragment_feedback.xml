@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dip">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDiscription"
+        android:textSize="15dip"
+        android:textAlignment="center"
+        android:text="This android app is created by Prasanna Deshappriya. Contact 'prasannadeshappriya@gmail.com' for more information." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dip"
+        android:layout_below="@id/tvDiscription"
+        android:id="@+id/vwBar1"
+        android:layout_marginBottom="10dip"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:maxLines="1"
+        android:layout_below="@+id/vwBar1"
+        android:id="@+id/etEmail"
+        android:hint="Your email address"
+
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:hint="Your message"
+        android:id="@+id/etMessage"
+        android:layout_below="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:maxLines="6"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="250dip"
+        android:id="@+id/vwBar2"
+        android:layout_below="@+id/vwBar1"
+        android:layout_marginBottom="10dip"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:layout_width="150dip"
+        android:layout_below="@id/vwBar2"
+        android:id="@+id/btnSend"
+        android:layout_centerHorizontal="true"
+        android:text="Send"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
+</ScrollView>
