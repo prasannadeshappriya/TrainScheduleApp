@@ -1,1 +1,1 @@
-include ':app', ':jsoup', ':volley'
+include ':app', ':jsoup', ':volley', ':ksoap2'

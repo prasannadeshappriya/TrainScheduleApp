@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/jsoup" />
+            <option value="$PROJECT_DIR$/ksoap2" />
             <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
