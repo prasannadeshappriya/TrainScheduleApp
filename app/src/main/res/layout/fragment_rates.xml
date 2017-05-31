@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dip">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From :-"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/tvFromStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="To :-"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/tvTOStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dip"
+        android:id="@+id/btnTest"
+        android:text="Search"/>
+
+    <LinearLayout
+        android:background="@drawable/frame_border"
+        android:padding="20dip"
+        android:id="@+id/lyLayout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type :- 1st Class"
+            android:layout_marginLeft="10dip"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tvtext1"
+            android:layout_height="wrap_content"
+            android:text="Price :- Rs.60/="
+            android:textAlignment="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dip"
+            android:id="@+id/vwBar1"
+            android:layout_marginBottom="10dip"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type :- 2nd Class"
+            android:layout_marginLeft="10dip"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvtext2"
+            android:text="Price :- Rs.60/="
+            android:textAlignment="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dip"
+            android:id="@+id/vwBar2"
+            android:layout_marginBottom="10dip"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type :- 3rd Class"
+            android:layout_marginLeft="10dip"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvtext3"
+            android:text="Price :- Rs.60/="
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+    </ScrollView>

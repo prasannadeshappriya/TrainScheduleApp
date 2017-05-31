@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.prasanna.trainscheduleapp.DAO.SearchHistoryDAO;
 import com.example.prasanna.trainscheduleapp.Fragment.FeedBackFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.HistoryFragment;
+import com.example.prasanna.trainscheduleapp.Fragment.TrainRateFragment;
 import com.example.prasanna.trainscheduleapp.Fragment.TrainScheduleFragment;
 import com.example.prasanna.trainscheduleapp.R;
 import com.example.prasanna.trainscheduleapp.Utilities.Constants;
@@ -118,6 +119,12 @@ public class HomeActivity extends AppCompatActivity
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frmMain, feedBackFragment, Constants.FRAGMENT_FEEDBACK);
             toolbar.setTitle("Feedback");
+            transaction.commit();
+        }else if (id == R.id.nav_train_rates) {
+            TrainRateFragment rateFragment = new TrainRateFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain, rateFragment, Constants.FRAGMENT_TRAIN_RATES);
+            toolbar.setTitle("Train Rates");
             transaction.commit();
         }
 

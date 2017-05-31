@@ -30,4 +30,9 @@ public abstract class Constants {
     public static final String FRAGMENT_FEEDBACK = "feedback";
     public static final String FRAGMENT_TRAIN_SCHEDULE_VIEW = "train_schedule_view";
     public static final String FRAGMENT_TRAIN_HISTORY = "train_history";
+    public static final String FRAGMENT_TRAIN_RATES = "train_rates";
+
+    //For regarding soap
+    public static final String NAMESPACE = "http://ws.wso2.org/dataservice";
+    public static final String ENDPOINT = "http://103.11.35.13:9080/services/RailwayWebServiceV2Proxy.RailwayWebServiceV2ProxyHttpSoap12Endpoint";
 }

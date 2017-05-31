@@ -11,10 +11,10 @@
             android:id="@+id/nav_schedule_history"
             android:icon="@drawable/ic_stat_history"
             android:title="History" />
-        <!--<item-->
-        <!--android:id="@+id/nav_slideshow"-->
-        <!--android:icon="@drawable/ic_menu_slideshow"-->
-        <!--android:title="Slideshow" />-->
+        <item
+            android:id="@+id/nav_train_rates"
+            android:icon="@drawable/ic_stat_rates"
+            android:title="Rates" />
         <!--<item-->
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
