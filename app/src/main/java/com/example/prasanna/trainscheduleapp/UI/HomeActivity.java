@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity
             FeedBackFragment feedBackFragment = new FeedBackFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frmMain, feedBackFragment, Constants.FRAGMENT_FEEDBACK);
-            toolbar.setTitle("Feedback");
+            toolbar.setTitle("Train Schedule");
             transaction.commit();
         }else if (id == R.id.nav_train_rates) {
             TrainRateFragment rateFragment = new TrainRateFragment();

@@ -127,10 +127,14 @@ public class TrainRateFragment extends Fragment{
     }
 
     public void setParameters(ArrayList<String> arrPrice){
-        lyLayout.setVisibility(View.VISIBLE);
-        tvtext1.setText("Price :- Rs." + arrPrice.get(0) + "/=");
-        tvtext2.setText("Price :- Rs." + arrPrice.get(1) + "/=");
-        tvtext3.setText("Price :- Rs." + arrPrice.get(2) + "/=");
+        if(arrPrice.size()>2) {
+            lyLayout.setVisibility(View.VISIBLE);
+            tvtext1.setText("Price :- Rs." + arrPrice.get(0) + "/=");
+            tvtext2.setText("Price :- Rs." + arrPrice.get(1) + "/=");
+            tvtext3.setText("Price :- Rs." + arrPrice.get(2) + "/=");
+        }else{
+            Toast.makeText(getContext(),"No internet access!",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initializeArrays() {

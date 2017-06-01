@@ -2,6 +2,7 @@ package com.example.prasanna.trainscheduleapp.Task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import com.example.prasanna.trainscheduleapp.DAO.TrainStationDAO;
@@ -49,25 +50,40 @@ public class GetRatesTask extends Task {
 
     @Override
     protected Void doInBackground(Void... params) {
+        boolean con = false;
         try {
-            String methodName = "getRates";
-            SoapObject request = new SoapObject(Constants.NAMESPACE, methodName);
-            request.addProperty("StartStationCode", fromStationKey);
-            request.addProperty("EndStationCode", toStationKey);
-            request.addProperty("lang", "en");
+            if(Build.PRODUCT.matches(".*_?sdk_?.*")){
+                con = true;
+            }else {
+                Runtime runtime = Runtime.getRuntime();
+                try {
+                    Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+                    int exitValue = ipProcess.waitFor();
+                    con = (exitValue == 0);
+                } catch (Exception e) {
+                    con = false;
+                }
+            }
+            if(con) {
+                String methodName = "getRates";
+                SoapObject request = new SoapObject(Constants.NAMESPACE, methodName);
+                request.addProperty("StartStationCode", fromStationKey);
+                request.addProperty("EndStationCode", toStationKey);
+                request.addProperty("lang", "en");
 
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.setOutputSoapObject(request);
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                envelope.setOutputSoapObject(request);
 
-            HttpTransportSE httpTransport = new HttpTransportSE(Constants.ENDPOINT);
-            String actionName = methodName;
+                HttpTransportSE httpTransport = new HttpTransportSE(Constants.ENDPOINT);
+                String actionName = methodName;
 
-            httpTransport.call(actionName, envelope);
-            request = (SoapObject) envelope.bodyIn;
+                httpTransport.call(actionName, envelope);
+                request = (SoapObject) envelope.bodyIn;
 
-            for(int i=0; i<request.getPropertyCount(); i++) {
-                SoapObject result = (SoapObject) request.getProperty(i);
-                arrPrice.add(result.getProperty("price").toString());
+                for (int i = 0; i < request.getPropertyCount(); i++) {
+                    SoapObject result = (SoapObject) request.getProperty(i);
+                    arrPrice.add(result.getProperty("price").toString());
+                }
             }
 
         } catch (Exception e) {

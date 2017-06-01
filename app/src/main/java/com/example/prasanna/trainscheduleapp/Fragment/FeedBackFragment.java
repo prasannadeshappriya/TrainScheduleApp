@@ -3,6 +3,7 @@ package com.example.prasanna.trainscheduleapp.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ public class FeedBackFragment extends Fragment {
     private EditText etEmail;
     private EditText etMessage;
     private Button btnSend;
+    private ProgressDialog pd;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,12 +50,14 @@ public class FeedBackFragment extends Fragment {
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etMessage = (EditText) view.findViewById(R.id.etMessage);
         btnSend = (Button) view.findViewById(R.id.btnSend);
+        pd = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
 
         btnSend.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        send_message();
+                        CheckInternetAccess internetAccess = new CheckInternetAccess(getContext(),pd);
+                        internetAccess.execute();
                     }
                 }
         );
@@ -61,13 +65,72 @@ public class FeedBackFragment extends Fragment {
     }
 
     private void send_message() {
-        Map<String,String> parameters = new HashMap<>();
-        parameters.put("email",etEmail.getText().toString());
-        parameters.put("message",etMessage.getText().toString());
-        parameters.put("token",Constants.SERVER_TOKEN);
-        ProgressDialog pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
-        message msg = new message(getContext(),parameters,pd);
-        msg.execute();
+        boolean con = true;
+        if(etEmail.getText().toString().replace(" ","").equals("")){
+            con = false;
+            Toast.makeText(getContext(),"Email required!", Toast.LENGTH_SHORT).show();
+        }
+        if(etMessage.getText().toString().replace(" ","").equals("")){
+            con = false;
+            Toast.makeText(getContext(),"Message required!", Toast.LENGTH_SHORT).show();
+        }
+        if(con) {
+            Map<String, String> parameters = new HashMap<>();
+            parameters.put("email", etEmail.getText().toString());
+            parameters.put("message", etMessage.getText().toString());
+            parameters.put("token", Constants.SERVER_TOKEN);
+            message msg = new message(getContext(), parameters, pd);
+            msg.execute();
+        }
+    }
+
+    private class CheckInternetAccess extends AsyncTask<Void,Void,Void>{
+        private Context context;
+        private ProgressDialog pd;
+        boolean con;
+
+        public CheckInternetAccess(Context context, ProgressDialog pd) {
+            this.context = context;
+            this.pd = pd;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd.setIndeterminate(true);
+            pd.setCanceledOnTouchOutside(false);
+            pd.setMessage("Connecting");
+            pd.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(con) {
+                send_message();
+            }else{
+                pd.dismiss();
+                Toast.makeText(context,"No internet access!",Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //Ping is not working for emulator
+            //Check weather the app is running on emulator or not
+            if(Build.PRODUCT.matches(".*_?sdk_?.*")){
+                con = true;
+            }else {
+                Runtime runtime = Runtime.getRuntime();
+                try {
+                    Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+                    int exitValue = ipProcess.waitFor();
+                    con = (exitValue == 0);
+                } catch (Exception e) {
+                    printLog("Error :- " + e.toString());
+                    con = false;
+                }
+            }
+            return null;
+        }
     }
 
     private class message extends AsyncTask<Void,Void,Void>{
@@ -85,10 +148,7 @@ public class FeedBackFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            pd.setIndeterminate(true);
-            pd.setCanceledOnTouchOutside(false);
             pd.setMessage("Sending..");
-            pd.show();
         }
 
         @Override
