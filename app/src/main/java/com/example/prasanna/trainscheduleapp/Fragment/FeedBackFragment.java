@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,7 +40,7 @@ import java.util.Map;
 public class FeedBackFragment extends Fragment {
     private EditText etEmail;
     private EditText etMessage;
-    private Button btnSend;
+    private ImageButton btnSend;
     private ProgressDialog pd;
     @Nullable
     @Override
@@ -49,7 +50,7 @@ public class FeedBackFragment extends Fragment {
         //Initialize variables
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etMessage = (EditText) view.findViewById(R.id.etMessage);
-        btnSend = (Button) view.findViewById(R.id.btnSend);
+        btnSend = (ImageButton) view.findViewById(R.id.btnSend);
         pd = new ProgressDialog(getContext(), R.style.AppTheme_Dark_Dialog);
 
         btnSend.setOnClickListener(
@@ -68,11 +69,9 @@ public class FeedBackFragment extends Fragment {
         boolean con = true;
         if(etEmail.getText().toString().replace(" ","").equals("")){
             con = false;
-            Toast.makeText(getContext(),"Email required!", Toast.LENGTH_SHORT).show();
         }
         if(etMessage.getText().toString().replace(" ","").equals("")){
             con = false;
-            Toast.makeText(getContext(),"Message required!", Toast.LENGTH_SHORT).show();
         }
         if(con) {
             Map<String, String> parameters = new HashMap<>();
@@ -81,6 +80,9 @@ public class FeedBackFragment extends Fragment {
             parameters.put("token", Constants.SERVER_TOKEN);
             message msg = new message(getContext(), parameters, pd);
             msg.execute();
+        }else{
+            Toast.makeText(getContext(),"All fields are required!", Toast.LENGTH_SHORT).show();
+            pd.dismiss();
         }
     }
 

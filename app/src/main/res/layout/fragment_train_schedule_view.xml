@@ -18,6 +18,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvTrainScheduleDate"/>
+
     <TextView
         android:textAlignment="center"
         android:text="Connection failed [Offline results]"
@@ -25,6 +26,30 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvOfflineStatus"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Arrival"
+            android:textColor="#FFA500"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/train_schedule_title"
+            android:paddingLeft="10dip"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Departure"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/train_schedule_title"
+            android:paddingRight="10dip"
+            android:id="@+id/adapterTrainDeparture"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"

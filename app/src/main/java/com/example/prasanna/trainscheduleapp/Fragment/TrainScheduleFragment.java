@@ -15,8 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +38,7 @@ import java.util.TimeZone;
  */
 
 public class TrainScheduleFragment extends Fragment implements CalenderFragment.EditNameDialogListener{
-    private Button btnSearch;
+    private ImageButton btnSearch;
     private ProgressDialog pd;
     private TrainStationDAO trainStationDAO;
     private AutoCompleteTextView tvFromStation;
@@ -68,7 +68,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
 
         //Initialize
         pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
-        btnSearch = (Button) view.findViewById(R.id.btnTest);
+        btnSearch = (ImageButton) view.findViewById(R.id.btnScheduleSearch);
         tvDate = (TextView) view.findViewById(R.id.tvDate);
         tvFromStation = (AutoCompleteTextView) view.findViewById(R.id.tvFromStation);
         tvToStation = (AutoCompleteTextView) view.findViewById(R.id.tvTOStation);

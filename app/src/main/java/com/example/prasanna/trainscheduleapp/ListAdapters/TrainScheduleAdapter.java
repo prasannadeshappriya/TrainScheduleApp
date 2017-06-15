@@ -57,8 +57,8 @@ public class TrainScheduleAdapter extends BaseAdapter {
         }else {
             tvName.setText("Train Name :- " + schedule.getNumber());
         }
-        tvArrival.setText("Arrival :- " + schedule.getArrival());
-        tvDepature.setText("Destination :- " + schedule.getEnd());
+        tvArrival.setText(schedule.getArrival());
+        tvDepature.setText(schedule.getEnd());
         if(schedule.getType().equals("")){
             tvType.setVisibility(View.GONE);
         }else {

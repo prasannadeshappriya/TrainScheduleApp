@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  */
 
 public class TrainRateFragment extends Fragment{
-    private Button btnSearch;
+    private ImageButton btnSearch;
     private ProgressDialog pd;
     private TrainStationDAO trainStationDAO;
     private AutoCompleteTextView tvFromStation;
@@ -43,7 +44,7 @@ public class TrainRateFragment extends Fragment{
 
         //Initialize
         pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
-        btnSearch = (Button) view.findViewById(R.id.btnTest);
+        btnSearch = (ImageButton) view.findViewById(R.id.btnRateSearch);
         tvFromStation = (AutoCompleteTextView) view.findViewById(R.id.tvFromStation);
         tvToStation = (AutoCompleteTextView) view.findViewById(R.id.tvTOStation);
         trainStationDAO = new TrainStationDAO(getContext());

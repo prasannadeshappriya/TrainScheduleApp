@@ -24,18 +24,20 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Arrival :- 00:00:00"
+        android:text="00:00:00"
         android:textColor="#FFA500"
         android:layout_below="@+id/adapterTrainArrivalView1"
         android:layout_alignLeft="@+id/adapterTrainArrivalView2"
         android:layout_alignParentLeft="true"
         android:paddingLeft="10dip"
+        android:textSize="@dimen/train_schedule_font"
         android:id="@+id/adapterTrainArrival"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Departure :- 00:00:00"
+        android:textSize="@dimen/train_schedule_font"
+        android:text="00:00:00"
         android:layout_below="@+id/adapterTrainArrivalView1"
         android:layout_alignRight="@+id/adapterTrainArrivalView2"
         android:layout_alignParentRight="true"

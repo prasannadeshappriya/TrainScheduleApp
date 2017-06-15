@@ -51,13 +51,20 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <Button
-        android:layout_width="150dip"
-        android:layout_below="@id/vwBar2"
+    <ImageButton
         android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Send"
-        android:layout_height="wrap_content" />
+        android:src="@drawable/send_button"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/vwBar2"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
 </RelativeLayout>
 
 </ScrollView>
