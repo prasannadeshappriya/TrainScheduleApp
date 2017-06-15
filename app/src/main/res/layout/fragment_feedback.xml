@@ -62,8 +62,8 @@
         android:layout_below="@id/vwBar2"
         android:scaleType="fitCenter"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
 
 </RelativeLayout>
 

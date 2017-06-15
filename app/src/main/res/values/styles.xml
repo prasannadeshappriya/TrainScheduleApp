@@ -23,11 +23,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/accent</item>
 
-        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
 
         <item name="colorControlNormal">@color/iron</item>
         <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/accent</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@color/iron</item>
 
         <item name="colorButtonNormal">@color/primary_dark</item>
@@ -40,7 +40,7 @@
     </style>
 
     <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
 
